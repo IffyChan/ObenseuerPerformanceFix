@@ -7,7 +7,7 @@
     <AssemblyName>ObenseuerPerformanceFix</AssemblyName>
     <RootNamespace>ObenseuerPerformanceFix</RootNamespace>
     <Description>Fixes 30 FPS borderless lock and optimizes rendering pipeline (shadows, reflection probes, GPU instancing)</Description>
-    <Authors>Community</Authors>
+    <Authors>ifchan</Authors>
     <Version>1.0.0</Version>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>

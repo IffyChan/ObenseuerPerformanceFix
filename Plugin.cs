@@ -12,7 +12,7 @@ namespace ObenseuerPerformanceFix
     [BepInPlugin(Guid, Name, Version)]
     public sealed class Plugin : BaseUnityPlugin
     {
-        public const string Guid = "obenseuer.performancefix";
+        public const string Guid = "obenseuer.ifchan.performancefix";
         public const string Name = "Obenseuer Performance Fix";
         public const string Version = "1.0.0";
 

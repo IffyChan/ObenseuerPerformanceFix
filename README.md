@@ -21,7 +21,7 @@ BepInEx 6 mod for **Obenseuer** fixing the 30 FPS borderless window lock and red
 3. Launch the game.
 
 ### Configuration
-Config is generated at `BepInEx/config/obenseuer.performancefix.cfg`:
+Config is generated at `BepInEx/config/obenseuer.ifchan.performancefix.cfg`:
 - `[Mod] Enabled` (default `true`): Master switch.
 - `[Display] TargetFpsWithVsyncOff` (default `-1`): Frame limit when VSync is OFF (`-1` = Unlocked).
 - `[Shadows] MinShadowMeshVolume` (default `0.08`): Minimum object volume in m³ to cast shadows.
@@ -44,7 +44,7 @@ Config is generated at `BepInEx/config/obenseuer.performancefix.cfg`:
 3. Запустите игру.
 
 ### Настройки
-Файл настроек: `BepInEx/config/obenseuer.performancefix.cfg`:
+Файл настроек: `BepInEx/config/obenseuer.ifchan.performancefix.cfg`:
 - `[Mod] Enabled` (по умолчанию `true`): Главный выключатель мода.
 - `[Display] TargetFpsWithVsyncOff` (по умолчанию `-1`): Лимит кадров при выключенном VSync (`-1` = без ограничений).
 - `[Shadows] MinShadowMeshVolume` (по умолчанию `0.08`): Минимальный объем объекта в м³ для отбрасывания теней.
