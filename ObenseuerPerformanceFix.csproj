@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="Config.Build.user.props" Condition="Exists('Config.Build.user.props')" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>ObenseuerPerformanceFix</AssemblyName>
+    <RootNamespace>ObenseuerPerformanceFix</RootNamespace>
+    <Description>Fixes 30 FPS borderless lock and optimizes rendering pipeline (shadows, reflection probes, GPU instancing)</Description>
+    <Authors>Community</Authors>
+    <Version>1.0.0</Version>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <DebugType>embedded</DebugType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <NoWarn>$(NoWarn);MSB3277</NoWarn>
+
+    <GameDir Condition="'$(GameDir)' == ''">Z:\Games\Steam\steamapps\common\Obenseuer</GameDir>
+    <ManagedDir>$(GameDir)\Obenseuer_Data\Managed</ManagedDir>
+    <BepInExCoreDir>$(GameDir)\BepInEx\core</BepInExCoreDir>
+    <PluginsDir>$(GameDir)\BepInEx\plugins\ObenseuerPerformanceFix</PluginsDir>
+  </PropertyGroup>
+
+  <Target Name="CheckGameDir" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(ManagedDir)\Assembly-CSharp.dll')"
+           Text="Assembly-CSharp.dll not found in '$(ManagedDir)'. Check GameDir in Config.Build.user.props." />
+  </Target>
+
+  <ItemGroup>
+    <Reference Include="$(BepInExCoreDir)\BepInEx.Core.dll" Private="false" />
+    <Reference Include="$(BepInExCoreDir)\BepInEx.Unity.Mono.dll" Private="false" />
+    <Reference Include="$(BepInExCoreDir)\0Harmony.dll" Private="false" />
+
+    <Reference Include="$(ManagedDir)\Assembly-CSharp.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\UnityEngine.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\UnityEngine.CoreModule.dll" Private="false" />
+  </ItemGroup>
+
+  <Target Name="DeployToGame" AfterTargets="Build" Condition="'$(Deploy)' == 'true'">
+    <MakeDir Directories="$(PluginsDir)" Condition="!Exists('$(PluginsDir)')" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginsDir)" />
+    <Message Importance="high" Text="Deployed -> $(PluginsDir)\$(TargetFileName)" />
+  </Target>
+
+</Project>

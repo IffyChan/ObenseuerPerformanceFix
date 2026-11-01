@@ -1,0 +1,7 @@
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+Config.Build.user.props
+.vs/
