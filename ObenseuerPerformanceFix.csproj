@@ -35,6 +35,7 @@
     <Reference Include="$(ManagedDir)\Assembly-CSharp.dll" Private="false" />
     <Reference Include="$(ManagedDir)\UnityEngine.dll" Private="false" />
     <Reference Include="$(ManagedDir)\UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\UnityEngine.InputLegacyModule.dll" Private="false" />
   </ItemGroup>
 
   <Target Name="DeployToGame" AfterTargets="Build" Condition="'$(Deploy)' == 'true'">

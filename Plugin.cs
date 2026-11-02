@@ -54,8 +54,8 @@ namespace ObenseuerPerformanceFix
                 new ConfigDescription("Target FPS limit when VSync is OFF. -1 means Unlocked, or set 60, 120, 144, 240.",
                     new AcceptableValueRange<int>(-1, 360)));
 
-            MaxQueuedFrames = Config.Bind("Display", "MaxQueuedFrames", 3,
-                new ConfigDescription("DirectX swapchain queued frames. Setting to 3 prevents half-refresh rate drops during frame time spikes.",
+            MaxQueuedFrames = Config.Bind("Display", "MaxQueuedFrames", 2,
+                new ConfigDescription("DirectX swapchain queued frames (1-2 recommended for responsive input and smooth frame pacing).",
                     new AcceptableValueRange<int>(1, 4)));
 
             // [Shadows]
@@ -110,6 +110,24 @@ namespace ObenseuerPerformanceFix
             SceneManager.sceneLoaded += Patches.SceneOptimizer.OnSceneLoaded;
         }
 
+        private void Update()
+        {
+            // Hot reload config live in-game with F8
+            if (Input.GetKeyDown(KeyCode.F8))
+            {
+                try
+                {
+                    Config.Reload();
+                    ApplyDirectQualitySettings();
+                    Log.LogInfo($"[HotReload] Config reloaded via F8! MaxQueuedFrames={QualitySettings.maxQueuedFrames}, TargetFPS={Application.targetFrameRate}, Cascades={QualitySettings.shadowCascades}, Distance={QualitySettings.shadowDistance}");
+                }
+                catch (Exception ex)
+                {
+                    Log.LogError($"[HotReload] Failed to reload config: {ex.Message}");
+                }
+            }
+        }
+
         internal static void ApplyDirectQualitySettings()
         {
             if (!Enabled.Value) return;
@@ -140,6 +158,11 @@ namespace ObenseuerPerformanceFix
                 if (FixVsyncConflict.Value && QualitySettings.vSyncCount > 0)
                 {
                     Application.targetFrameRate = -1;
+                }
+                else if (QualitySettings.vSyncCount == 0)
+                {
+                    int target = TargetFpsWithVsyncOff.Value;
+                    Application.targetFrameRate = (target == 0) ? -1 : target;
                 }
             }
             catch (Exception ex)
